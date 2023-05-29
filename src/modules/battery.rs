@@ -20,6 +20,11 @@ impl Module for Battery {
   fn announcments(cfg: &Config) -> Vec<Announcment> {
     let ha = cfg.homeassistant.clone().unwrap();
 
+    let h = System::new();
+    if h.battery_life().is_err() {
+      return vec![];
+    }
+
     vec![
       Announcment {
         domain: "sensor".to_string(),

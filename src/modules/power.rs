@@ -26,6 +26,11 @@ impl Module for Power {
   fn announcments(cfg: &Config) -> Vec<Announcment> {
     let ha = cfg.homeassistant.clone().unwrap();
 
+    let h = System::new();
+    if h.on_ac_power().is_err() {
+      return vec![];
+    }
+
     vec![Announcment {
       domain: "binary_sensor".to_string(),
       object_id: "ac_power".to_string(),

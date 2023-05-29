@@ -54,7 +54,7 @@ impl Module for Cpu {
           name: format!("{} CPU Load User", ha.friendly_name),
           state_class: "measurement".to_string(),
           state_topic: format!("stats2mqtt/{}/cpu", cfg.mqtt.client_id),
-          value_template: "{{ value_json.load.user * 100.0 }}".to_string(),
+          value_template: "{{ value_json.load.user * 100.0 | round(1) }}".to_string(),
           unit_of_measurement: "%".to_string(),
           unique_id: format!("{}_cpu_load_user", cfg.mqtt.client_id)
         },
@@ -69,7 +69,7 @@ impl Module for Cpu {
           name: format!("{} CPU Load System", ha.friendly_name),
           state_class: "measurement".to_string(),
           state_topic: format!("stats2mqtt/{}/cpu", cfg.mqtt.client_id),
-          value_template: "{{ value_json.load.system * 100.0 }}".to_string(),
+          value_template: "{{ value_json.load.system * 100.0 | round(1) }}".to_string(),
           unit_of_measurement: "%".to_string(),
           unique_id: format!("{}_cpu_load_system", cfg.mqtt.client_id),
         },

@@ -57,7 +57,7 @@ pub trait Module {
         None => (),
       }
 
-      loop {
+      'main: loop {
         let state = Self::get_state(&system).await;
 
         match state {
@@ -74,7 +74,10 @@ pub trait Module {
                 .unwrap();
             }
           }
-          Err(_) => println!("Failed to get data for {}", Self::topic()),
+          Err(_) => {
+            println!("Failed to get data for {}", Self::topic());
+            break 'main;
+          },
         }
 
         time::sleep(interval).await;
